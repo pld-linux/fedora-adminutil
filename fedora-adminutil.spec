@@ -8,18 +8,16 @@ Group:		Libraries
 Source0:	http://directory.fedora.redhat.com/sources/%{name}-%{version}.tar.gz
 # Source0-md5:	08c514a30604e192a22d7a035a9dfccc
 URL:		http://directory.fedora.redhat.com/wiki/SetupUtil
+BuildRequires:	icu
 BuildRequires:	libstdc++-devel
 BuildRequires:	mozldap-devel
 BuildRequires:	nspr-devel
 BuildRequires:	nss-devel
-BuildRequires:	icu
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-
-
-%description -l pl
-
+The Setup Util is a collection of C++ APIs used to write programs that
+install, configure, and uninstall Fedora Server software.
 
 %prep
 %setup -q

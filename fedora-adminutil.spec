@@ -1,4 +1,5 @@
 Summary:	Fedora Admin Util
+Summary(pl):	Fedora Admin Util
 Name:		fedora-adminutil
 Version:	1.0
 Release:	0.1
@@ -15,6 +16,10 @@ BuildRequires:	icu
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
+
+
+%description -l pl
+
 
 %prep
 %setup -q

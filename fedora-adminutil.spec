@@ -11,6 +11,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	mozldap-devel
 BuildRequires:	nspr-devel
 BuildRequires:	nss-devel
+BuildRequires:	icu
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

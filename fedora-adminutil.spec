@@ -1,5 +1,4 @@
 Summary:	Fedora Admin Util
-Summary(pl):	Fedora Admin Util
 Name:		fedora-adminutil
 Version:	1.0
 Release:	0.1
@@ -9,10 +8,12 @@ Source0:	http://directory.fedora.redhat.com/sources/%{name}-%{version}.tar.gz
 # Source0-md5:	08c514a30604e192a22d7a035a9dfccc
 URL:		http://directory.fedora.redhat.com/wiki/SetupUtil
 BuildRequires:	icu
+BuildRequires:	libicu-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	mozldap-devel
 BuildRequires:	nspr-devel
 BuildRequires:	nss-devel
+BuildRequires:	perl-base
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

@@ -1,4 +1,6 @@
-Summary:	Fedora Admin Util
+# TODO: -devel/-static separation
+Summary:	Fedora Admin Util - API to install and configure Fedora Server software
+Summary(pl):	Fedora Admin Util - API do instalacji i konfiguracji oprogramowania Fedora Server
 Name:		fedora-adminutil
 Version:	1.0
 Release:	0.1
@@ -20,6 +22,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 The Setup Util is a collection of C++ APIs used to write programs that
 install, configure, and uninstall Fedora Server software.
 
+%description -l pl
+Setup Util to zestaw API C++ do pisania programów instaluj±cych,
+konfiguruj±cych i usuwaj±cych oprogramowanie Fedora Server.
+
 %prep
 %setup -q
 
@@ -27,7 +33,7 @@ install, configure, and uninstall Fedora Server software.
 %{__make} \
 	CC="%{__cc}" \
 	CCC="%{__cxx}" \
-	MAKE=%{__make} \
+	MAKE="%{__make}" \
 	ICU_GENRB=%{_bindir}/genrb \
 	ICU_INCPATH=%{_includedir}/icu \
 	LDAPSDK_INCDIR=%{_includedir}/mozldap \
@@ -46,6 +52,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%{_includedir}/*
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.a
+%{_includedir}/*

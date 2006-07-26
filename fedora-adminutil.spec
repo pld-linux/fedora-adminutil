@@ -43,8 +43,8 @@ konfiguruj±cych i usuwaj±cych oprogramowanie Fedora Server.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_includedir}/{libadminutil,libadmsslutil},%{_libdir}}
-install built/adminutil/*/include/libadminutil/* $RPM_BUILD_ROOT/%{_includedir}/libadminutil
-install built/adminutil/*/include/libadmsslutil/* $RPM_BUILD_ROOT/%{_includedir}/libadmsslutil
+install built/adminutil/*/include/libadminutil/* $RPM_BUILD_ROOT%{_includedir}/libadminutil
+install built/adminutil/*/include/libadmsslutil/* $RPM_BUILD_ROOT%{_includedir}/libadmsslutil
 install built/adminutil/*/lib/lib* $RPM_BUILD_ROOT%{_libdir}
 
 %clean

@@ -8,7 +8,7 @@ License:	LGPL
 Group:		Libraries
 Source0:	http://directory.fedora.redhat.com/sources/%{name}-%{version}.tar.gz
 # Source0-md5:	08c514a30604e192a22d7a035a9dfccc
-URL:		http://directory.fedora.redhat.com/wiki/SetupUtil
+URL:		http://directory.fedora.redhat.com/wiki/AdminUtil
 BuildRequires:	icu
 BuildRequires:	libicu-devel
 BuildRequires:	libstdc++-devel
@@ -19,12 +19,22 @@ BuildRequires:	perl-base
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-The Setup Util is a collection of C++ APIs used to write programs that
-install, configure, and uninstall Fedora Server software.
+The AdminUtil is a set of utility functions written in C, which are
+divided into 2 groups: libadminutil and libadmsslutil. They are mainly
+used in the Admin Server / CGI services to communicate with the
+configuration Directory Server. It covers, e.g., login to Admin Server
+using the authentication with the Directory Server. AdminUtil is
+needed to build the Admin Server as well as the Directory Server's
+admin components.
 
 %description -l pl
-Setup Util to zestaw API C++ do pisania programów instaluj±cych,
-konfiguruj±cych i usuwaj±cych oprogramowanie Fedora Server.
+AdminUtil to zestaw funkcji narzêdziowych napisanych w C, podzielonych
+na dwie grupy: libadminutil i libadmsslutil. S± u¿ywane g³ównie przez
+Admin Server / us³ugi CGI do komunikowania siê z konfiguracyjnym
+Directory Serverem. Pokrywaj± m.in. logowanie do Admin Servera przy
+u¿yciu uwierzytelnienia wzglêdem Directory Servera. AdminUtil jest
+potrzebny do zbudowania Admin Servera oraz komponentów
+administracyjnych Directory Servera.
 
 %prep
 %setup -q

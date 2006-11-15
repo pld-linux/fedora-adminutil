@@ -1,4 +1,3 @@
-# TODO: shared libs soname and proper linking
 Summary:	Fedora Admin Util - API to install and configure Fedora Server software
 Summary(pl):	Fedora Admin Util - API do instalacji i konfiguracji oprogramowania Fedora Server
 Name:		fedora-adminutil
@@ -8,6 +7,7 @@ License:	LGPL
 Group:		Libraries
 Source0:	http://directory.fedora.redhat.com/sources/%{name}-%{version}.tar.gz
 # Source0-md5:	8bafc54cdc08e3886b6a68d0ac9367a0
+Patch0:		%{name}-link.patch
 URL:		http://directory.fedora.redhat.com/wiki/AdminUtil
 BuildRequires:	icu
 BuildRequires:	libicu-devel
@@ -52,6 +52,7 @@ Pliki nag³ówkowe bibliotek Fedora Admin Util.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__make} \

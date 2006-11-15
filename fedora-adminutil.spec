@@ -1,13 +1,13 @@
-# TODO: -devel/-static separation
+# TODO: shared libs soname and proper linking
 Summary:	Fedora Admin Util - API to install and configure Fedora Server software
 Summary(pl):	Fedora Admin Util - API do instalacji i konfiguracji oprogramowania Fedora Server
 Name:		fedora-adminutil
-Version:	1.0
+Version:	1.0.4
 Release:	0.1
 License:	LGPL
 Group:		Libraries
 Source0:	http://directory.fedora.redhat.com/sources/%{name}-%{version}.tar.gz
-# Source0-md5:	08c514a30604e192a22d7a035a9dfccc
+# Source0-md5:	8bafc54cdc08e3886b6a68d0ac9367a0
 URL:		http://directory.fedora.redhat.com/wiki/AdminUtil
 BuildRequires:	icu
 BuildRequires:	libicu-devel
@@ -36,14 +36,32 @@ u¿yciu uwierzytelnienia wzglêdem Directory Servera. AdminUtil jest
 potrzebny do zbudowania Admin Servera oraz komponentów
 administracyjnych Directory Servera.
 
+%package devel
+Summary:	Header files for Fedora Admin Util libraries
+Summary(pl):	Pliki nag³ówkowe bibliotek Fedora Admin Util
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	mozldap-devel
+Requires:	nspr-devel
+
+%description devel
+Header files for Fedora Admin Util libraries.
+
+%description devel -l pl
+Pliki nag³ówkowe bibliotek Fedora Admin Util.
+
 %prep
 %setup -q
 
 %build
 %{__make} \
+	ARCH_DEBUG="%{rpmcflags}" \
+	ARCH_OPT="%{rpmcflags}" \
+	BUILD_DEBUG=%{?debug:full}%{!?debug:optimize} \
 	CC="%{__cc}" \
 	CCC="%{__cxx}" \
 	MAKE="%{__make}" \
+	NSOS_TEST=PLD \
 	ICU_GENRB=%{_bindir}/genrb \
 	ICU_INCPATH=%{_includedir}/icu \
 	LDAPSDK_INCDIR=%{_includedir}/mozldap \
@@ -52,16 +70,20 @@ administracyjnych Directory Servera.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_includedir}/{libadminutil,libadmsslutil},%{_libdir}}
-install built/adminutil/*/include/libadminutil/* $RPM_BUILD_ROOT%{_includedir}/libadminutil
-install built/adminutil/*/include/libadmsslutil/* $RPM_BUILD_ROOT%{_includedir}/libadmsslutil
-install built/adminutil/*/lib/lib* $RPM_BUILD_ROOT%{_libdir}
+install -d $RPM_BUILD_ROOT{%{_includedir},%{_libdir}}
+
+cp -r built/adminutil/*/include/* $RPM_BUILD_ROOT%{_includedir}
+cp -r built/adminutil/*/lib/* $RPM_BUILD_ROOT%{_libdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%{_libdir}/adminutil-properties
+
+%files devel
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/lib*.so
-%{_libdir}/lib*.a
-%{_includedir}/*
+%{_includedir}/adminutil-1.0

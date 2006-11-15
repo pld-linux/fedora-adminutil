@@ -1,0 +1,22 @@
+--- fedora-adminutil-1.0.4/lib/libadminutil/Makefile.orig	2006-08-24 23:03:44.000000000 +0200
++++ fedora-adminutil-1.0.4/lib/libadminutil/Makefile	2006-11-15 15:21:47.999505000 +0100
+@@ -99,7 +99,7 @@
+ else
+ $(SO_LIB): $(OBJS)
+ 	rm -f $@
+-	$(LINK_DLL) $(OBJS) $(DEPLIBS)
++	$(LINK_DLL) -Wl,-soname,$(SO_NAME)$(SO_COREEXT).$(ADMSDK_SO_MAJORVERSION) $(OBJS) $(DEPLIBS) $(LDAP_NOSSL_LINK) $(addprefix -l, $(NSPR_LIBNAMES)) -licuuc
+ 	cd $(OBJLIBDIR); rm -f $(SO_NAME)$(SO_COREEXT); ln -s $(SO_NAME)$(SO_EXT) $(SO_NAME)$(SO_COREEXT)
+ 	cd $(OBJLIBDIR); rm -f $(SO_NAME)$(SO_COREEXT).$(ADMSDK_SO_MAJORVERSION); ln -s $(SO_NAME)$(SO_EXT) $(SO_NAME)$(SO_COREEXT).$(ADMSDK_SO_MAJORVERSION)
+ endif
+--- fedora-adminutil-1.0.4/lib/libadmsslutil/Makefile.orig	2006-05-12 01:30:32.000000000 +0200
++++ fedora-adminutil-1.0.4/lib/libadmsslutil/Makefile	2006-11-15 15:35:59.089505000 +0100
+@@ -98,7 +98,7 @@
+ else
+ $(SO_LIB): $(OBJS)
+ 	rm -f $@
+-	$(LINK_DLL) $(OBJS) $(DEPLIBS)
++	$(LINK_DLL) -Wl,-soname,$(SO_NAME)$(SO_COREEXT).$(ADMSDK_SO_MAJORVERSION) $(OBJS) $(DEPLIBS) $(addprefix -l, $(NSPR_LIBNAMES)) -lnss3 -lssl3 -lldap$(LDAP_SUF)$(LDAP_DLL_PRESUF) -lssldap$(LDAP_SUF)$(LDAP_DLL_PRESUF) -L$(OBJLIBDIR) -ladminutil
+ 	cd $(OBJLIBDIR); rm -f $(SO_NAME)$(SO_COREEXT); ln -s $(SO_NAME)$(SO_EXT) $(SO_NAME)$(SO_COREEXT)
+ 	cd $(OBJLIBDIR); rm -f $(SO_NAME)$(SO_COREEXT).$(ADMSDK_SO_MAJORVERSION); ln -s $(SO_NAME)$(SO_EXT) $(SO_NAME)$(SO_COREEXT).$(ADMSDK_SO_MAJORVERSION)
+ endif

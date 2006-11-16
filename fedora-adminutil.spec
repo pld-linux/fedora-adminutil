@@ -55,7 +55,7 @@ Pliki nag³ówkowe bibliotek Fedora Admin Util.
 %patch0 -p1
 
 %build
-%{__make} \
+%{__make} buildAdminUtil \
 	ARCH_DEBUG="%{rpmcflags}" \
 	ARCH_OPT="%{rpmcflags}" \
 	BUILD_DEBUG=%{?debug:full}%{!?debug:optimize} \
@@ -68,6 +68,12 @@ Pliki nag³ówkowe bibliotek Fedora Admin Util.
 	LDAPSDK_INCDIR=%{_includedir}/mozldap \
 	NSPR_INCDIR=%{_includedir}/nspr \
 	SECURITY_INCDIR=%{_includedir}/nss
+
+%{__make} -f pkgadminutil.mk pkguxAdminUtil \
+	BUILD_DEBUG=%{?debug:full}%{!?debug:optimize} \
+	INSTDIR=. \
+	PKGINSTDIR=. \
+	NSOS_TEST=PLD
 
 %install
 rm -rf $RPM_BUILD_ROOT

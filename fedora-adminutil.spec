@@ -12,7 +12,7 @@ URL:		http://directory.fedora.redhat.com/wiki/AdminUtil
 BuildRequires:	icu
 BuildRequires:	libicu-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	mozldap-devel
+BuildRequires:	mozldap-devel >= 6.0
 BuildRequires:	nspr-devel
 BuildRequires:	nss-devel
 BuildRequires:	perl-base
@@ -41,7 +41,7 @@ Summary:	Header files for Fedora Admin Util libraries
 Summary(pl):	Pliki nag³ówkowe bibliotek Fedora Admin Util
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	mozldap-devel
+Requires:	mozldap-devel >= 6.0
 Requires:	nspr-devel
 
 %description devel

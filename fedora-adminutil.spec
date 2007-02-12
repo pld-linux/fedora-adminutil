@@ -1,5 +1,5 @@
 Summary:	Fedora Admin Util - API to install and configure Fedora Server software
-Summary(pl.UTF-8):   Fedora Admin Util - API do instalacji i konfiguracji oprogramowania Fedora Server
+Summary(pl.UTF-8):	Fedora Admin Util - API do instalacji i konfiguracji oprogramowania Fedora Server
 Name:		fedora-adminutil
 Version:	1.0.4
 Release:	0.1
@@ -38,7 +38,7 @@ administracyjnych Directory Servera.
 
 %package devel
 Summary:	Header files for Fedora Admin Util libraries
-Summary(pl.UTF-8):   Pliki nagłówkowe bibliotek Fedora Admin Util
+Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek Fedora Admin Util
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	mozldap-devel >= 6.0

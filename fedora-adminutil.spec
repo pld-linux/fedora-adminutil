@@ -1,5 +1,5 @@
 Summary:	Fedora Admin Util - API to install and configure Fedora Server software
-Summary(pl):	Fedora Admin Util - API do instalacji i konfiguracji oprogramowania Fedora Server
+Summary(pl.UTF-8):   Fedora Admin Util - API do instalacji i konfiguracji oprogramowania Fedora Server
 Name:		fedora-adminutil
 Version:	1.0.4
 Release:	0.1
@@ -27,18 +27,18 @@ using the authentication with the Directory Server. AdminUtil is
 needed to build the Admin Server as well as the Directory Server's
 admin components.
 
-%description -l pl
-AdminUtil to zestaw funkcji narzÍdziowych napisanych w C, podzielonych
-na dwie grupy: libadminutil i libadmsslutil. S± uøywane g≥Ûwnie przez
-Admin Server / us≥ugi CGI do komunikowania siÍ z konfiguracyjnym
-Directory Serverem. Pokrywaj± m.in. logowanie do Admin Servera przy
-uøyciu uwierzytelnienia wzglÍdem Directory Servera. AdminUtil jest
-potrzebny do zbudowania Admin Servera oraz komponentÛw
+%description -l pl.UTF-8
+AdminUtil to zestaw funkcji narzƒôdziowych napisanych w C, podzielonych
+na dwie grupy: libadminutil i libadmsslutil. SƒÖ u≈ºywane g≈Ç√≥wnie przez
+Admin Server / us≈Çugi CGI do komunikowania siƒô z konfiguracyjnym
+Directory Serverem. PokrywajƒÖ m.in. logowanie do Admin Servera przy
+u≈ºyciu uwierzytelnienia wzglƒôdem Directory Servera. AdminUtil jest
+potrzebny do zbudowania Admin Servera oraz komponent√≥w
 administracyjnych Directory Servera.
 
 %package devel
 Summary:	Header files for Fedora Admin Util libraries
-Summary(pl):	Pliki nag≥Ûwkowe bibliotek Fedora Admin Util
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe bibliotek Fedora Admin Util
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	mozldap-devel >= 6.0
@@ -47,8 +47,8 @@ Requires:	nspr-devel
 %description devel
 Header files for Fedora Admin Util libraries.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe bibliotek Fedora Admin Util.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe bibliotek Fedora Admin Util.
 
 %prep
 %setup -q

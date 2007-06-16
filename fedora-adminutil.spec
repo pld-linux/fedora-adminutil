@@ -1,21 +1,23 @@
 Summary:	Fedora Admin Util - API to install and configure Fedora Server software
 Summary(pl.UTF-8):	Fedora Admin Util - API do instalacji i konfiguracji oprogramowania Fedora Server
 Name:		fedora-adminutil
-Version:	1.0.4
+Version:	1.1.0
 Release:	0.1
 License:	LGPL
 Group:		Libraries
-Source0:	http://directory.fedora.redhat.com/sources/%{name}-%{version}.tar.gz
-# Source0-md5:	8bafc54cdc08e3886b6a68d0ac9367a0
+Source0:	http://directory.fedoraproject.org/sources/adminutil-%{version}.tar.bz2
+# Source0-md5:	d320b5dcde3193e2a72b35220f728fd5
 Patch0:		%{name}-link.patch
-URL:		http://directory.fedora.redhat.com/wiki/AdminUtil
-BuildRequires:	icu
-BuildRequires:	libicu-devel
-BuildRequires:	libstdc++-devel
+URL:		http://directory.fedoraproject.org/wiki/AdminUtil
+BuildRequires:	autoconf >= 2.59
+BuildRequires:	automake >= 1:1.9
+BuildRequires:	icu >= 3.4
+BuildRequires:	libicu-devel >= 3.4
+BuildRequires:	libtool >= 1:1.4.2-9
 BuildRequires:	mozldap-devel >= 6.0
-BuildRequires:	nspr-devel
-BuildRequires:	nss-devel
-BuildRequires:	perl-base
+BuildRequires:	nspr-devel >= 1:4.6
+BuildRequires:	nss-devel >= 1:3.11
+BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,8 +43,11 @@ Summary:	Header files for Fedora Admin Util libraries
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek Fedora Admin Util
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libicu-devel >= 3.4
 Requires:	mozldap-devel >= 6.0
-Requires:	nspr-devel
+Requires:	nspr-devel >= 1:4.6
+# for admsslutil
+Requires:	nss-devel >= 1:3.11
 
 %description devel
 Header files for Fedora Admin Util libraries.
@@ -50,37 +55,36 @@ Header files for Fedora Admin Util libraries.
 %description devel -l pl.UTF-8
 Pliki nagłówkowe bibliotek Fedora Admin Util.
 
+%package static
+Summary:	Static Fedora Admin Util libraries
+Summary(pl.UTF-8):	Statyczne biblioteki Fedora Admin Util
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static Fedora Admin Util libraries.
+
+%description static -l pl.UTF-8
+Statyczne biblioteki Fedora Admin Util.
+
 %prep
-%setup -q
+%setup -q -n adminutil-%{version}
 %patch0 -p1
 
 %build
-%{__make} buildAdminUtil \
-	ARCH_DEBUG="%{rpmcflags}" \
-	ARCH_OPT="%{rpmcflags}" \
-	BUILD_DEBUG=%{?debug:full}%{!?debug:optimize} \
-	CC="%{__cc}" \
-	CCC="%{__cxx}" \
-	MAKE="%{__make}" \
-	NSOS_TEST=PLD \
-	ICU_GENRB=%{_bindir}/genrb \
-	ICU_INCPATH=%{_includedir}/icu \
-	LDAPSDK_INCDIR=%{_includedir}/mozldap \
-	NSPR_INCDIR=%{_includedir}/nspr \
-	SECURITY_INCDIR=%{_includedir}/nss
+%{__libtoolize}
+%{__aclocal} -I m4
+%{__autoconf}
+%{__automake}
+%configure
 
-%{__make} -f pkgadminutil.mk pkguxAdminUtil \
-	BUILD_DEBUG=%{?debug:full}%{!?debug:optimize} \
-	INSTDIR=. \
-	PKGINSTDIR=. \
-	NSOS_TEST=PLD
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_includedir},%{_libdir}}
 
-cp -r built/adminutil/*/include/* $RPM_BUILD_ROOT%{_includedir}
-cp -r built/adminutil/*/lib/* $RPM_BUILD_ROOT%{_libdir}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -90,10 +94,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
-%{_libdir}/adminutil-properties
+%doc NEWS README
+%attr(755,root,root) %{_libdir}/libadminutil.so.*.*.*
+%attr(755,root,root) %{_libdir}/libadmsslutil.so.*.*.*
+%{_datadir}/adminutil
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_includedir}/adminutil-1.0
+%attr(755,root,root) %{_libdir}/libadminutil.so
+%attr(755,root,root) %{_libdir}/libadmsslutil.so
+%{_libdir}/libadminutil.la
+%{_libdir}/libadmsslutil.la
+%{_includedir}/libadminutil
+%{_includedir}/libadmsslutil
+%{_pkgconfigdir}/adminutil.pc
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libadminutil.a
+%{_libdir}/libadmsslutil.a

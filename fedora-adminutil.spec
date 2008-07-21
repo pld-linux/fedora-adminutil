@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Fedora Admin Util - API do instalacji i konfiguracji oprogram
 Name:		fedora-adminutil
 Version:	1.1.6
 Release:	0.1
-License:	LGPL
+License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://directory.fedoraproject.org/sources/adminutil-%{version}.tar.bz2
 # Source0-md5:	b01d441f81d3d260ba84e4f0d5311721

@@ -1,12 +1,12 @@
 Summary:	Fedora Admin Util - API to install and configure Fedora Server software
 Summary(pl.UTF-8):	Fedora Admin Util - API do instalacji i konfiguracji oprogramowania Fedora Server
 Name:		fedora-adminutil
-Version:	1.1.0
+Version:	1.1.6
 Release:	0.1
 License:	LGPL
 Group:		Libraries
 Source0:	http://directory.fedoraproject.org/sources/adminutil-%{version}.tar.bz2
-# Source0-md5:	d320b5dcde3193e2a72b35220f728fd5
+# Source0-md5:	b01d441f81d3d260ba84e4f0d5311721
 Patch0:		%{name}-link.patch
 URL:		http://directory.fedoraproject.org/wiki/AdminUtil
 BuildRequires:	autoconf >= 2.59
@@ -96,7 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc NEWS README
 %attr(755,root,root) %{_libdir}/libadminutil.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libadminutil.so.0
 %attr(755,root,root) %{_libdir}/libadmsslutil.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libadmsslutil.so.0
 %{_datadir}/adminutil
 
 %files devel

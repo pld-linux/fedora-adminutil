@@ -1,58 +1,42 @@
---- adminutil-1.1.0/Makefile.am.orig	2007-06-16 10:42:14.617909469 +0200
-+++ adminutil-1.1.0/Makefile.am	2007-06-16 10:50:24.605832289 +0200
-@@ -16,7 +16,8 @@
+--- adminutil-1.1.6/Makefile.am.orig	2007-10-11 04:32:43.000000000 +0200
++++ adminutil-1.1.6/Makefile.am	2008-07-21 22:04:32.156744273 +0200
+@@ -19,7 +19,8 @@
  #------------------------
- NSPR_LINK = @nspr_lib@ -lplc4 -lplds4 -lnspr4
- NSS_LINK = @nss_lib@ -lssl3 -lnss3 -lsoftokn3
+ NSPR_LINK = @nspr_lib@ -lplc4 -lnspr4
+ NSS_LINK = @nss_lib@ -lssl3 -lnss3
 -LDAPSDK_LINK = @ldapsdk_lib@ -lssldap60 -lldap60 -lprldap60 -lldif60
 +LDAPSDK_LINK = @ldapsdk_lib@ -lssldap60 -lldap60 -lprldap60
 +LDAPSDK_NOSSL_LINK = @ldapsdk_lib@ -lldap60 -lprldap60
+ if enable_tests
  SASL_LINK = @sasl_lib@ -lsasl2
- ICU_LINK = @icu_lib@ -licui18n -licuuc -licudata
- 
-@@ -30,7 +31,7 @@
+ endif
+@@ -44,7 +45,7 @@
  TESTS = retrieveSIE retrieveSIEssl psetread psetreadssl psetwrite
  
- TEST_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/include @nspr_inc@ @ldapsdk_inc@ @icu_inc@
+ TEST_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/include @nss_inc@ @nspr_inc@ @ldapsdk_inc@ @icu_inc@
 -TEST_LDADD = libadmsslutil.la libadminutil.la $(NSPR_LINK) $(NSS_LINK) $(LDAPSDK_LINK) $(SASL_LINK) $(ICU_LINK)
 +TEST_LDADD = libadmsslutil.la libadminutil.la $(NSPR_LINK) $(NSS_LINK) $(LDAPSDK_LINK) $(ICU_LINK)
  
  retrieveSIE_SOURCES = tests/retrieveSIE.c
  retrieveSIE_CPPFLAGS = $(TEST_CPPFLAGS)
-@@ -108,7 +109,7 @@
+@@ -123,7 +124,7 @@
  	lib/libadminutil/uginfo.c
  
  libadminutil_la_CPPFLAGS =  $(AM_CPPFLAGS) @nspr_inc@ @ldapsdk_inc@ @icu_inc@
 -libadminutil_la_LIBADD =  $(NSPR_LINK) $(NSS_LINK) $(LDAPSDK_LINK) $(SASL_LINK) $(ICU_LINK)
 +libadminutil_la_LIBADD =  $(NSPR_LINK) $(LDAPSDK_NOSSL_LINK) $(ICU_LINK)
- 
- #------------------------
- # libadmsslutil
-@@ -122,4 +123,4 @@
+ libadminutil_la_LDFLAGS = -version-number $(subst .,:,$(PACKAGE_VERSION))
+ if CXXLINK_REQUIRED
+ libadminutil_la_LINK = $(CXXLINK)
+@@ -143,7 +144,7 @@
  	lib/libadmsslutil/uginfossl.c
  
- libadmsslutil_la_CPPFLAGS = $(AM_CPPFLAGS) @nspr_inc@ @ldapsdk_inc@ @icu_inc@
--libadmsslutil_la_LIBADD = $(NSPR_LINK) $(NSS_LINK) $(LDAPSDK_LINK) $(SASL_LINK) $(ICU_LINK)
-+libadmsslutil_la_LIBADD = $(NSPR_LINK) $(NSS_LINK) $(LDAPSDK_LINK) $(ICU_LINK) $(top_builddir)/libadminutil.la
---- adminutil-1.1.0/configure.ac.orig	2007-04-04 21:37:36.000000000 +0200
-+++ adminutil-1.1.0/configure.ac	2007-06-16 10:50:40.698749373 +0200
-@@ -87,7 +87,6 @@
- m4_include(m4/nspr.m4)
- m4_include(m4/nss.m4)
- m4_include(m4/mozldap.m4)
--m4_include(m4/sasl.m4)
- m4_include(m4/icu.m4)
- m4_include(m4/fhs.m4)
- 
-@@ -114,8 +113,6 @@
- AC_SUBST(ldapsdk_inc)
- AC_SUBST(ldapsdk_lib)
- AC_SUBST(ldapsdk_libdir)
--AC_SUBST(sasl_inc)
--AC_SUBST(sasl_lib)
- AC_SUBST(icu_inc)
- AC_SUBST(icu_lib)
- AC_SUBST(icu_libdir)
+ libadmsslutil_la_CPPFLAGS = $(AM_CPPFLAGS) @nss_inc@ @nspr_inc@ @ldapsdk_inc@ @icu_inc@
+-libadmsslutil_la_LIBADD = $(NSPR_LINK) $(NSS_LINK) $(LDAPSDK_LINK) $(SASL_LINK) $(ICU_LINK) libadminutil.la 
++libadmsslutil_la_LIBADD = $(NSPR_LINK) $(NSS_LINK) $(LDAPSDK_LINK) $(ICU_LINK) libadminutil.la
+ libadmsslutil_la_LDFLAGS = -version-number $(subst .,:,$(PACKAGE_VERSION))
+ if CXXLINK_REQUIRED
+ libadmsslutil_la_LINK = $(CXXLINK)
 --- adminutil-1.1.0/adminutil.pc.in.orig	2007-04-04 21:37:35.000000000 +0200
 +++ adminutil-1.1.0/adminutil.pc.in	2007-06-16 11:00:35.900667997 +0200
 @@ -6,6 +6,6 @@
